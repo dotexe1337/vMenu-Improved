@@ -1,0 +1,19 @@
+{
+	"brands": [
+		{
+			"staff": "true",
+			"brandName": "Staff Vehicles",
+			"vehicles": [
+				"staff_vehicle_one",
+				"staff_vehicle_two"
+			]
+		},
+		{
+			"brandName": "Non-Staff Vehicles",
+			"vehicles": [
+				"vehicle_one",
+				"vehicle_two"
+			]
+		},
+	]
+}
