@@ -85,6 +85,8 @@ namespace vMenuClient
             Tick += VoiceChat;
             Tick += TimeOptions;
             Tick += WeatherOptions;
+            Tick += PlayerTimeOptions;
+            Tick += PlayerWeatherOptions;
             Tick += WeaponOptions;
             Tick += OnlinePlayersTasks;
             Tick += MiscSettings;
@@ -687,16 +689,6 @@ namespace vMenuClient
                     DrawTextOnScreen($"~c~{timestring}", 0.208f + safeZoneSizeX, GetSafeZoneSize() - GetTextScaleHeight(0.4f, 1), 0.40f, Alignment.Center);
                     ResetScriptGfxAlign();
                 }
-
-                if (MainMenu.MiscSettingsMenu.ShowSpeedoKmh && Game.PlayerPed.IsInVehicle())
-                {
-                    ShowSpeedKmh();
-                }
-
-                if (MainMenu.MiscSettingsMenu.ShowSpeedoMph && Game.PlayerPed.IsInVehicle())
-                {
-                    ShowSpeedMph();
-                }
             }
             else
             {
@@ -806,34 +798,6 @@ namespace vMenuClient
         }
         #endregion
         #region Private ShowSpeed Functions
-        /// <summary>
-        /// Shows the current speed in km/h.
-        /// Must be in a vehicle.
-        /// </summary>
-        private void ShowSpeedKmh()
-        {
-            int speed = int.Parse(Math.Round(GetEntitySpeed(GetVehicle().Handle) * 3.6f).ToString());
-            DrawTextOnScreen($"{speed} KM/h", 0.995f, 0.955f, 0.7f, Alignment.Right, 4);
-        }
-
-        /// <summary>
-        /// Shows the current speed in mph.
-        /// Must be in a vehicle.
-        /// </summary>
-        private void ShowSpeedMph()
-        {
-            var speed = Math.Round(GetEntitySpeed(GetVehicle().Handle) * 2.23694f);
-
-            if (MainMenu.MiscSettingsMenu.ShowSpeedoKmh)
-            {
-                DrawTextOnScreen($"{speed} MPH", 0.995f, 0.925f, 0.7f, Alignment.Right, 4);
-                HideHudComponentThisFrame((int)HudComponent.StreetName);
-            }
-            else
-            {
-                DrawTextOnScreen($"{speed} MPH", 0.995f, 0.955f, 0.7f, Alignment.Right, 4);
-            }
-        }
         #endregion
         int radarSwitchTimer = 0;
         int lastPressedPoint = 0;
@@ -2861,7 +2825,7 @@ namespace vMenuClient
         {
             if (MainMenu.PermissionsSetupComplete && MainMenu.PersonalVehicleMenu != null && IsAllowed(Permission.PVLockDoors) && MainMenu.PersonalVehicleMenu.CurrentPersonalVehicle != null)
             {
-                if (!Game.PlayerPed.IsInVehicle(MainMenu.PersonalVehicleMenu.CurrentPersonalVehicle) && !Game.PlayerPed.IsGettingIntoAVehicle)
+                if (!Game.PlayerPed.IsInVehicle(MainMenu.PersonalVehicleMenu.CurrentPersonalVehicle))
                 {
                     if (Game.PlayerPed.Position.DistanceToSquared(MainMenu.PersonalVehicleMenu.CurrentPersonalVehicle.Position) < 30.0f)
                     {
@@ -3202,6 +3166,33 @@ namespace vMenuClient
                         EndTextCommandDisplayHelp(0, false, true, 6000);
                     }
                 }
+            }
+        }
+        #endregion
+
+        // Patched by dotexe for client-side time & weather
+        #region Time & Weather Options
+        public async Task PlayerWeatherOptions()
+        {
+            await Delay(100);
+            if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked)
+            {
+                ClearOverrideWeather();
+                ClearWeatherTypePersist();
+                SetWeatherTypeOverTime(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection(), 0.0f);
+                SetWeatherTypePersist(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection());
+                SetWeatherTypeNow(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection());
+                SetWeatherTypeNowPersist(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection());
+            }
+        }
+
+        public async Task PlayerTimeOptions()
+        {
+            await Delay(100);
+            if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked)
+            {
+                NetworkOverrideClockTime(MainMenu.PlayerTimeWeatherOptionsMenu.timeDataList.ListIndex, 0, 0);
+                PauseClock(MainMenu.PlayerTimeWeatherOptionsMenu.timeFrozen.Checked);
             }
         }
         #endregion
