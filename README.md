@@ -1,14 +1,3 @@
-#### Latest Builds
-
-##### Latest AppVeyor build
-
-|Latest Build|
-|:-:|
-|[![Build status](https://ci.appveyor.com/api/projects/status/inf2kinljmp8a5ul?svg=true)](https://ci.appveyor.com/project/TomGrobbe/vmenu)|
-
---------
-
-
 # vMenu-Improved
 vMenu is server sided menu for FiveM servers, including full\* permission support.
 
@@ -74,7 +63,7 @@ vMenu v2.0.0 and earlier was [using a modified version of NativeUI](https://gith
 Tom Grobbe - https://www.vespura.com/
 dotexe - https://www.dotexe.cf
 
-Copyright © 2017-2020
+	Copyright © 2017-2020
 
 ----
 
