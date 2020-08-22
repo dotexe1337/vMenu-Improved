@@ -9,8 +9,10 @@
 --------
 
 
-# vMenu
+# vMenu-Improved
 vMenu is server sided menu for FiveM servers, including full\* permission support.
+
+This version (vMenu-Improved) has been modified by dotexe to add additional features.
 
 
 \*(Some features do not have permissions support as they are either harmless or it'd just be silly to deny them. However, they will be disabled if you deny access to the submenu that they are a part of (eg: unlimited stamina in Player Options will be disabled if you deny `vMenu.PlayerOptions.Menu`.))
@@ -21,7 +23,7 @@ vMenu is server sided menu for FiveM servers, including full\* permission suppor
 
 ## Download
 
-Click [here](https://github.com/TomGrobbe/vMenu/releases) to go to the releases page and download it.
+Click [here](https://github.com/original-dotexe/vMenu-Improved/releases) to go to the releases page and download it.
 
 --------
 
@@ -34,11 +36,6 @@ If you're using Zap Hosting, you may find that moving the `permissions.cfg` file
 If this is the case, leave your `permissions.cfg` file here: `/resources/vMenu/config/permissions.cfg` and add the following to the very top of your server.cfg file: `exec resources/vMenu/config/permissions.cfg` (instead of `exec permissions.cfg`).
 
 You can also use ZAP Hosting's one-click installer for vMenu. Get a ZAP-Hosting server with a 10% lifetime discount [HERE](https://zap-hosting.com/vespura) and make sure to use `Vespura-a-3715` at checkout.
-
---------
-
-## Support
-If you like my work, please consider supporting me on [**Patreon**](https://www.patreon.com/vespura). I've put a _lot_ of my time and hard work into these and other projects.
 
 --------
 
@@ -75,6 +72,7 @@ vMenu v2.0.0 and earlier was [using a modified version of NativeUI](https://gith
 
 
 Tom Grobbe - https://www.vespura.com/
+dotexe - https://www.dotexe.cf
 
 Copyright © 2017-2020
 
